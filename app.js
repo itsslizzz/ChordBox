@@ -81,10 +81,10 @@ const fotosCollection = collection(firestore, 'fotos');
 document.addEventListener('DOMContentLoaded', function () {
   const AlbumFile = document.getElementById('AlbumFile');
   const albumTitle = document.getElementById('albumTitle');
-  const uploadButton = document.getElementById('uploadButton');
+  const submit = document.getElementById('submit');
 
-  if (uploadButton) {
-      uploadButton.addEventListener('click', subirImagen);
+  if (submit) {
+    submit.addEventListener('click', subirImagen);
   }
 
   // Escucha cambios en la colección 'fotos' en tiempo real
