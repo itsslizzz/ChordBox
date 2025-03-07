@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>RankeaTusAlbumsGay</title>
+</head>
+<body>
+    <header>
+        <div class="Titulo-pagina">
+             <h1>RankeaTuAlbumGay</h1>
+        </div>
+        <nav>
+            <ul class="Nav-menu">
+              <!-- Sign in -->
+              <div class="MenuDespegableSign">
+                <h2 class="menu-trigger">Sign in</h2>
+                <div class="VentanaLogin">
+                  <form id="loginForm">
+                    <input type="email" id="login-email" placeholder="Correo" required>
+                    <input type="password" id="login-password" placeholder="Contraseña" required>
+                    <button type="button" id="login">Sign in</button>
+                    <div id="loginErrorMsg" class="Error"></div>
+                    <div class="OpcionesAdiccionales">
+                      <label><input type="checkbox"> Recuérdame</label>
+                      <a href="#">¿Olvidaste la contraseña?</a>
+                    </div>
+                    <p>¿Primera vez en esta página? <a href="#">Ingresa ahora</a></p>
+                  </form>
+                </div>
+              </div>
+          
+              <!-- Create account -->
+              <div class="MenuDespegableSign">
+                <h2 class="menu-trigger">Create account</h2>
+                <div class="VentanaLogin">
+                  <form id="registerForm">
+                    <input type="email" id="email" placeholder="Correo" required>
+                    <input type="password" id="password" placeholder="Contraseña" required>
+                    <button type="button" id="register">Registrar</button>
+                    <div id="registerErrorMsg" class="Error"></div>
+                  </form>
+                </div>
+              </div>
+          
+              <li><h2>Albums</h2></li>
+            </ul>
+          </nav>
+    </header>
+    <main>
+        <h2>Para subir tus Albumes tienes que <a href="#">iniciar sesion</a> o <a href="#">crearte una cuenta</a></h2>   
+        <!-- section para subir un album -->
+<section id="AlbumContenedor">
+  <h2>Sube tu álbum</h2>
+  <form id="albumForm">
+    <input type="text" id="albumTitle" placeholder="Título del álbum" required>
+    <input type="text" id="albumArtist" placeholder="Artista" required>
+    <input type="file" id="AlbumFile" accept="image/*" required>
+    <button type="submit">Subir álbum</button>
+  </form>
+</section>   
+         <!-- sección para mostrar los álbumes subidos -->
+     <section id="albumGallery">
+        <h3>Álbumes subidos</h3>
+         <div id="albumsContainer"></div>
+      </section>
+    </main>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+    <script type="module" src="FireBase-Config.js"></script>
+    <script type="module" src="app.js"></script>
+</body>
+</html>
