@@ -1,10 +1,13 @@
-import { auth, db } from "./FireBase-Config.js";
+import { auth, db, initializeApp} from "./FireBase-Config.js";
+import { getStorage, ref, uploadBytes, getDownLoadURL} from "https://www.gstatic.com/firebasejs/11.4.0/firebase-storage.js"
+import { getFirestore, collection, addDoc, onSnapshot} from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js"
+
 import { 
   createUserWithEmailAndPassword, 
   signInWithEmailAndPassword, 
   signOut, 
   onAuthStateChanged 
-} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+} from "https://www.gstatic.com/firebasejs/11.4.0firebase-auth.js";
 
 // Registro de usuario
 document.getElementById("register").addEventListener("click", () => {
@@ -54,86 +57,104 @@ onAuthStateChanged(auth, (user) => {
     userInfo.textContent = "No hay usuario conectado";
   }
 });
-import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
 
-const storage = getStorage(app);  // ✅ Correcto
-// Obtener el formulario y los campos
-const albumForm = document.getElementById("albumForm");
-const albumTitle = document.getElementById("albumTitle");
-const albumArtist = document.getElementById("albumArtist");
-const albumFile = document.getElementById("AlbumFile");
+// Bloque para la subida de album
 
-// Manejar el envío del formulario para subir el álbum
-albumForm.addEventListener("submit", (event) => {
-  event.preventDefault(); // Prevenir recarga de página
+const firebaseConfig = {
+  apiKey: "AIzaSyBf6pH4qUfoQNmHN4mFDYywE4_ORRo7z4w",
+  authDomain: "chordbox-360a3.firebaseapp.com",
+  databaseURL: "https://chordbox-360a3-default-rtdb.firebaseio.com",
+  projectId: "chordbox-360a3",
+  storageBucket: "chordbox-360a3.firebasestorage.app",
+  messagingSenderId: "25066021446",
+  appId: "1:25066021446:web:579891ee2c9f159589a047"
+};
 
-  const title = albumTitle.value;
-  const artist = albumArtist.value;
-  const file = albumFile.files[0];  // Obtener el archivo seleccionado
+const app = initializeApp(firebaseConfig);
+const storage = getStorage();
+const firestore = getFirestore();
+const albumsContainer = document.getElementById('albumsContainer');
 
-  // Crear una referencia en Firebase Storage para el archivo subido
-  const storageRef = storage.ref('albums/' + file.name);
+// Obtén una referencia a la colección "fotos" en Firestore
+const fotosCollection = collection(firestore, 'fotos');
 
-  // Subir el archivo
-  const uploadTask = storageRef.put(file);
+document.addEventListener('DOMContentLoaded', function () {
+  const AlbumFile = document.getElementById('AlbumFile');
+  const albumTitle = document.getElementById('albumTitle');
+  const uploadButton = document.getElementById('uploadButton');
 
-  uploadTask.on('state_changed', 
-    (snapshot) => {
-      // Puedes monitorear el progreso de la subida (opcional)
-      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      console.log('Progreso: ' + progress + '%');
-    }, 
-    (error) => {
-      console.error('Error al subir el archivo:', error);
-      alert('Error al subir el archivo');
-    }, 
-    () => {
-      // Cuando la subida se complete, obtener la URL del archivo
-      uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-        console.log('Archivo disponible en:', downloadURL);
-        // Aquí puedes guardar el álbum en Firestore si lo deseas
-        firestore.collection('albums').add({
-          title: title,
-          artist: artist,
-          imageUrl: downloadURL,
-        })
-        .then(() => {
-          alert('Álbum subido correctamente');
-          showAlbumInGallery(downloadURL, title, artist);  // Mostrar el álbum en la galería
-        })
-        .catch((error) => {
-          console.error('Error al guardar en Firestore:', error);
-          alert('Error al guardar el álbum en Firestore');
-        });
-      });
-    }
-  );
+  if (uploadButton) {
+      uploadButton.addEventListener('click', subirImagen);
+  }
+
+  // Escucha cambios en la colección 'fotos' en tiempo real
+  onSnapshot(fotosCollection, (snapshot) => {
+      // Obtén los documentos de la colección 'fotos'
+      const fotos = snapshot.docs.map(doc => doc.data());
+      // Muestra todas las imágenes en la lista
+      mostrarImagenesEnLista(fotos);
+  });
 });
 
-// Función para mostrar los álbumes en la galería
-function showAlbumInGallery(url, title, artist) {
-  const albumsContainer = document.getElementById("albumsContainer");
-  const albumElement = document.createElement("div");
+async function subirImagen() {
+  const AlbumFile = document.getElementById('AlbumFile');
+  const albumTitle = document.getElementById('albumTitle');
 
-  // Crear un elemento para mostrar el álbum
-  albumElement.innerHTML = `
-    <div>
-      <h4>${title}</h4>
-      <p>Artista: ${artist}</p>
-      <img src="${url}" alt="${title}" style="width: 200px; height: auto;">
-    </div>
-  `;
+  if (AlbumFile && AlbumFile.files.length > 0) {
+      try {
+          const file = AlbumFile.files[0];
+          const AlbumName = file.name;
+          const storageRef = ref(storage, `fotos/${AlbumName}`);
+          await uploadBytes(storageRef, file);
 
-  // Agregar el álbum al contenedor
-  albumsContainer.appendChild(albumElement);
+          // Obtén la URL de descarga
+          const downloadURL = await getDownloadURL(storageRef);
+
+          // Agrega la URL y los datos asociados a la colección 'fotos' en Firestore
+          await addDoc(fotosCollection, {
+              url: downloadURL,
+              titulo: albumTitle.value,
+          });
+
+          // Limpiar los campos después de la carga
+          AlbumFile.value = '';
+          albumTitle.value = '';
+      } catch (error) {
+          console.error('Error al subir la imagen:', error);
+          alert('Error al subir la imagen');
+      }
+  } else {
+      alert('Por favor, selecciona una imagen');
+  }
 }
 
-// Cargar los álbumes desde Firestore y mostrarlos en la galería
-window.onload = function() {
-  firestore.collection('albums').get().then((querySnapshot) => {
-    querySnapshot.forEach((doc) => {
-      const album = doc.data();
-      showAlbumInGallery(album.imageUrl, album.title, album.artist);  // Mostrar álbum en la galería
-    });
-  });
-};
+function mostrarImagenesEnLista(fotos) {
+  const albumsContainer = document.getElementById('albumsContainer');
+
+  if (albumsContainer) {
+      // Limpiar la lista antes de mostrar nuevas imágenes
+      albumsContainer.innerHTML = '';
+
+      // Iterar sobre las imágenes y crear elementos de imagen, título y descripción
+      fotos.forEach((foto) => {
+          // Contenedor para cada elemento
+          const container = document.createElement('div');
+          container.classList.add('album-container');
+
+          // Imagen
+          const imgElement = document.createElement('img');
+          imgElement.src = foto.url;
+          imgElement.classList.add('uploaded-album');
+          container.appendChild(imgElement);
+
+          // Título
+          const tituloElement = document.createElement('p');
+          tituloElement.textContent = `Título: ${foto.titulo}`;
+          tituloElement.classList.add('album-title');
+          container.appendChild(tituloElement);
+
+          // Agregar el contenedor al imageList
+          albumsContainer.appendChild(container);
+      });
+  }
+}
