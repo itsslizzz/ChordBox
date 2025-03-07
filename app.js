@@ -1,5 +1,5 @@
 import { auth, db, initializeApp} from "./FireBase-Config.js";
-import { getStorage, ref, uploadBytes, getDownLoadURL} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js"
+import { getStorage, ref, uploadBytes, getDownloadURL} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js"
 import { getFirestore, collection, addDoc, onSnapshot} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"
 
 import { 
