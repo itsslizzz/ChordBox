@@ -7,7 +7,7 @@ import {
   signInWithEmailAndPassword, 
   signOut, 
   onAuthStateChanged 
-} from "https://www.gstatic.com/firebasejs/11.4.0firebase-auth.js";
+} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
 // Registro de usuario
 document.getElementById("register").addEventListener("click", () => {
