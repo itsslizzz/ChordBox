@@ -1,4 +1,4 @@
-import { auth } from "./FireBase-Config.js";
+import { auth, db } from "./FireBase-Config.js";
 import { 
   createUserWithEmailAndPassword, 
   signInWithEmailAndPassword, 
@@ -54,11 +54,9 @@ onAuthStateChanged(auth, (user) => {
     userInfo.textContent = "No hay usuario conectado";
   }
 });
+import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
 
-
-const storage = firebase.storage();  // Para almacenamiento
-const firestore = firebase.firestore();  // Para Firestore (si necesitas guardar info)
-
+const storage = getStorage(app);  // ✅ Correcto
 // Obtener el formulario y los campos
 const albumForm = document.getElementById("albumForm");
 const albumTitle = document.getElementById("albumTitle");
