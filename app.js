@@ -81,6 +81,7 @@ const fotosCollection = collection(firestore, 'fotos');
 document.addEventListener('DOMContentLoaded', function () {
   const AlbumFile = document.getElementById('AlbumFile');
   const albumTitle = document.getElementById('albumTitle');
+  const albumArtist = this.getElementById('albumArtist');
   const submit = document.getElementById('submit');
 
   if (submit) {
@@ -99,6 +100,7 @@ document.addEventListener('DOMContentLoaded', function () {
 async function subirImagen() {
   const AlbumFile = document.getElementById('AlbumFile');
   const albumTitle = document.getElementById('albumTitle');
+  const albumArtist = document.getElementById('albumArtist');
 
   if (AlbumFile && AlbumFile.files.length > 0) {
       try {
@@ -114,11 +116,13 @@ async function subirImagen() {
           await addDoc(fotosCollection, {
               url: downloadURL,
               titulo: albumTitle.value,
+              Nombre: albumArtist.value,
           });
 
           // Limpiar los campos después de la carga
           AlbumFile.value = '';
           albumTitle.value = '';
+          albumArtist.value = '';
       } catch (error) {
           console.error('Error al subir la imagen:', error);
           alert('Error al subir la imagen');
@@ -152,6 +156,12 @@ function mostrarImagenesEnLista(fotos) {
           tituloElement.textContent = `Título: ${foto.titulo}`;
           tituloElement.classList.add('album-title');
           container.appendChild(tituloElement);
+
+          // Artista 
+          const artistaElement = document.createElement('p');
+          artistaElement.textContent = `Artista: ${foto.Nombre}`;
+          artistaElement.classList.add('album-title');
+          container.appendChild(artistaElement);
 
           // Agregar el contenedor al imageList
           albumsContainer.appendChild(container);
