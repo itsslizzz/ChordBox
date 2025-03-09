@@ -102,33 +102,54 @@ async function subirImagen() {
   const albumTitle = document.getElementById('albumTitle');
   const albumArtist = document.getElementById('albumArtist');
 
-  if (AlbumFile && AlbumFile.files.length > 0) {
-      try {
-          const file = AlbumFile.files[0];
-          const AlbumName = file.name;
-          const storageRef = ref(storage, `fotos/${AlbumName}`);
-          await uploadBytes(storageRef, file);
+  // Limpiar errores previos
+  document.getElementById('titleError').textContent = "";
+  document.getElementById('artistError').textContent = "";
+  document.getElementById('coverError').textContent = "";
 
-          // Obtén la URL de descarga
-          const downloadURL = await getDownloadURL(storageRef);
+  let valid = true;
 
-          // Agrega la URL y los datos asociados a la colección 'fotos' en Firestore
-          await addDoc(fotosCollection, {
-              url: downloadURL,
-              titulo: albumTitle.value,
-              Nombre: albumArtist.value,
-          });
+  // Validaciones
+  if (albumTitle.value.trim() === "") {
+      alert ("El título es obligatorio.");
+      valid = false;
+  }
+  if (albumArtist.value.trim() === "") {
+      alert("El nombre del artista es obligatorio.");
+      valid = false;
+  }
+  if (!AlbumFile || AlbumFile.files.length === 0) {
+      alert("Debes subir una foto de portada.");
+      valid = false;
+  }
 
-          // Limpiar los campos después de la carga
-          AlbumFile.value = '';
-          albumTitle.value = '';
-          albumArtist.value = '';
-      } catch (error) {
-          console.error('Error al subir la imagen:', error);
-          alert('Error al subir la imagen');
-      }
-  } else {
-      alert('Por favor, selecciona una imagen');
+  // Si falta información, detener la ejecución
+  if (!valid) return;
+
+  // Si todo está bien, proceder con la subida
+  try {
+      const file = AlbumFile.files[0];
+      const AlbumName = file.name;
+      const storageRef = ref(storage, `fotos/${AlbumName}`);
+      await uploadBytes(storageRef, file);
+
+      // Obtén la URL de descarga
+      const downloadURL = await getDownloadURL(storageRef);
+
+      // Agrega la URL y los datos asociados a la colección 'fotos' en Firestore
+      await addDoc(fotosCollection, {
+          url: downloadURL,
+          titulo: albumTitle.value,
+          Nombre: albumArtist.value,
+      });
+
+      // Limpiar los campos después de la carga
+      AlbumFile.value = '';
+      albumTitle.value = '';
+      albumArtist.value = '';
+  } catch (error) {
+      console.error('Error al subir la imagen:', error);
+      alert('Error al subir la imagen');
   }
 }
 

@@ -55,19 +55,28 @@
     <main>
         <h2>Para subir tus Albumes tienes que <a href="#">iniciar sesion</a> o <a href="#">crearte una cuenta</a></h2>   
         <!-- section para subir un album -->
-<section id="AlbumContenedor">
-  <h2>Sube tu álbum</h2>
-  <section>
-    <input type="text" id="albumTitle" placeholder="Título del álbum" required>
-    <input type="text" id="albumArtist" placeholder="Artista" required>
-    <input type="file" id="AlbumFile" accept="image/*" required>
-    <button id="submit">Subir álbum</button>
-  </section>
-</section> 
+          <section id="AlbumContenedor">
+             <h2>Sube tu álbum</h2>
+               <section>
+                  <label for="albumTitle-album"> Titulo del album :</label>
+                  <input type="text" id="albumTitle" required>
+                  <span id="titleError" class="error"></span>
+
+                  <label for="albumArtist"> Nombre del artista :</label>
+                  <input type="text" id="albumArtist" required>
+                  <span id="artistError" class="error"></span>
+
+                  <label for="AlbumFile">Foto del album: </label>
+                  <input type="file" id="AlbumFile" accept="image/*" required>
+                  <span id="coverError" class="error"></span>
+
+                  <button id="submit">Subir álbum</button>
+                </section>
+            </section> 
          <!-- sección para mostrar los álbumes subidos -->
-     <section id="albumGallery">
-        <h3>Álbumes subidos</h3>
-         <div id="albumsContainer"></div>
+      <section id="albumGallery">
+           <h3>Álbumes subidos</h3>
+           <div id="albumsContainer"></div>
       </section>
     </main>
     <script type="module" src="FireBase-Config.js"></script>
