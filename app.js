@@ -98,6 +98,12 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 async function subirImagen() {
+  // Verificar si el usuario está autenticado
+  if (!auth.currentUser) {
+      alert("Debes iniciar sesión para subir un álbum.");
+      return;
+  }
+
   const AlbumFile = document.getElementById('AlbumFile');
   const albumTitle = document.getElementById('albumTitle');
   const albumArtist = document.getElementById('albumArtist');
@@ -111,7 +117,7 @@ async function subirImagen() {
 
   // Validaciones
   if (albumTitle.value.trim() === "") {
-      alert ("El título es obligatorio.");
+      alert("El título es obligatorio.");
       valid = false;
   }
   if (albumArtist.value.trim() === "") {
@@ -141,17 +147,22 @@ async function subirImagen() {
           url: downloadURL,
           titulo: albumTitle.value,
           Nombre: albumArtist.value,
+          usuarioId: auth.currentUser.uid // Guarda el ID del usuario que subió el álbum
       });
 
       // Limpiar los campos después de la carga
       AlbumFile.value = '';
       albumTitle.value = '';
       albumArtist.value = '';
+
+      alert("Álbum subido con éxito.");
+
   } catch (error) {
       console.error('Error al subir la imagen:', error);
       alert('Error al subir la imagen');
   }
 }
+
 
 function mostrarImagenesEnLista(fotos) {
   const albumsContainer = document.getElementById('albumsContainer');
