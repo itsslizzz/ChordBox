@@ -43,6 +43,7 @@ document.getElementById("login").addEventListener("click", () => {
 document.getElementById("logout").addEventListener("click", () => {
   signOut(auth).then(() => {
     alert("Sesión cerrada");
+    window.location.reload(); // Recargar la página para aplicar cambios
   }).catch((error) => {
     alert("Error al cerrar sesión: " + error.message);
   });
