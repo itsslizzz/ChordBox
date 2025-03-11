@@ -15,9 +15,9 @@
         <nav>
             <ul class="Nav-menu">
               <!-- Sign in -->
-              <div class="MenuDespegableSign">
-                <h2 class="menu-trigger">Sign in</h2>
-                <div class="VentanaLogin">
+              <div class="MenuDespegable">
+                <h2 class="ShowSign">Sign in</h2>
+                <div class="ShowVentana">
                   <form id="loginForm">
                     <input type="email" id="login-email" placeholder="Correo" required>
                     <input type="password" id="login-password" placeholder="Contraseña" required>
@@ -33,9 +33,9 @@
               </div>
           
               <!-- Create account -->
-              <div class="MenuDespegableSign">
-                <h2 class="menu-trigger">Create account</h2>
-                <div class="VentanaLogin">
+              <div class="MenuDespegable">
+                <h2 class="ShowCreate">Create account</h2>
+                <div class="ShowVentana">
                   <form id="registerForm">
                     <input type="email" id="email" placeholder="Correo" required>
                     <input type="password" id="password" placeholder="Contraseña" required>
@@ -44,36 +44,34 @@
                   </form>
                 </div>
               </div>
-          
               <li><h2>Albums</h2></li>
             </ul>
           </nav>
-                    <!-- Botón de logout -->
-         <button id="logout">Cerrar Sesión</button>
-         <p id="user-info"></p>
+               <!-- Botón de logout -->
+     <button id="logout">Cerrar Sesión</button>
+     <p id="user-info"></p>
     </header>
     <main>
         <h2>Para subir tus Albumes tienes que <a href="#">iniciar sesion</a> o <a href="#">crearte una cuenta</a></h2>   
-        <!-- section para subir un album -->
-          <section id="AlbumContenedor">
-             <h2>Sube tu álbum</h2>
-               <section>
-                  <label for="albumTitle-album"> Titulo del album :</label>
-                  <input type="text" id="albumTitle" required>
-                  <span id="titleError" class="error"></span>
-
-                  <label for="albumArtist"> Nombre del artista :</label>
-                  <input type="text" id="albumArtist" required>
-                  <span id="artistError" class="error"></span>
-
-                  <label for="AlbumFile">Foto del album: </label>
-                  <input type="file" id="AlbumFile" accept="image/*" required>
-                  <span id="coverError" class="error"></span>
-
-                  <button id="submit">Subir álbum</button>
-                </section>
-            </section> 
          <!-- sección para mostrar los álbumes subidos -->
+         <section id="AlbumContenedor">
+          <h2>Sube tu álbum</h2>
+            <section class="SubirAlbumes">
+               <label for="albumTitle-album"> Titulo del album :</label>
+               <input type="text" id="albumTitle" required>
+               <span id="titleError" class="error"></span>
+
+               <label for="albumArtist"> Nombre del artista :</label>
+               <input type="text" id="albumArtist" required>
+               <span id="artistError" class="error"></span>
+
+               <label for="AlbumFile">Foto del album :</label>
+               <input type="file" id="AlbumFile" accept="image/*" required>
+               <span id="coverError" class="error"></span>
+
+               <button id="submit">Subir álbum</button>
+             </section>
+         </section> 
       <section id="albumGallery">
            <h3>Álbumes subidos</h3>
            <div id="albumsContainer"></div>

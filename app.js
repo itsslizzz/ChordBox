@@ -200,3 +200,25 @@ function mostrarImagenesEnLista(fotos) {
       });
   }
 }
+
+onAuthStateChanged(auth, (user) => {
+  // Elementos a ocultar o mostrar
+  const signIn = document.querySelector(".ShowSign");
+  const createAccount = document.querySelector(".ShowCreate");
+  const subirAlbumes = document.querySelector(".SubirAlbumes");
+  const cerrarSesion = document.getElementById("logout");
+
+  if (user) {
+      // Si el usuario está autenticado
+      signIn.style.display = "none";
+      createAccount.style.display = "none";
+      subirAlbumes.style.display = "block";
+      cerrarSesion.style.display = "block";
+  } else {
+      // Si el usuario NO está autenticado
+      signIn.style.display = "block";
+      createAccount.style.display = "block";
+      subirAlbumes.style.display = "none";
+      cerrarSesion.style.display = "none";
+  }
+});
