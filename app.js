@@ -208,6 +208,7 @@ onAuthStateChanged(auth, (user) => {
   const createAccount = document.querySelector(".ShowCreate");
   const subirAlbumes = document.querySelector(".SubirAlbumes");
   const cerrarSesion = document.getElementById("logout");
+  const mensaje = document.querySelector(".showMessage");
 
   if (user) {
       // Si el usuario está autenticado
@@ -215,6 +216,7 @@ onAuthStateChanged(auth, (user) => {
       createAccount.style.display = "none";
       subirAlbumes.style.display = "block";
       cerrarSesion.style.display = "block";
+      mensaje.style.display = "none";
   } else {
       // Si el usuario NO está autenticado
       signIn.style.display = "block";
