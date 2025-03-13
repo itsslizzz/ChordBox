@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Álbum</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Detalles del Álbum</h1>
+    </header>
+    <main>
+        <img id="album-image" src="" alt="Imagen del álbum" width="300">
+        <h1 id="album-title"></h1>
+        <h2 id="album-artist"></h2>
+        <h3>Reseñas</h3>
+        <textarea id="review" placeholder="Escribe tu reseña"></textarea>
+        <select id="rating">
+            <option value="1">⭐</option>
+            <option value="2">⭐⭐</option>
+            <option value="3">⭐⭐⭐</option>
+            <option value="4">⭐⭐⭐⭐</option>
+            <option value="5">⭐⭐⭐⭐⭐</option>
+        </select>
+        <button id="submit-review">Enviar Reseña</button>
+
+        <div id="reviews-container"></div>
+    </main>
+
+    <script type="module" src="album.js"></script>
+</body>
+</html>
