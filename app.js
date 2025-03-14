@@ -153,31 +153,44 @@ onAuthStateChanged(auth, (user) => {
 });
 
 
-// bloque para redirijir al usuario para crear hacer su cuenta o iniciar sesion
+// Definir las variables globalmente
+let RegisterVentana = document.getElementById("registerVentana");
+let LoginVentana = document.getElementById("LoginVentana");
 
-document.getElementById("goToLogin").addEventListener("click", function(event){
+// bloque para redirijir al usuario a iniciar sesion
+document.getElementById("goToLogin").addEventListener("click", function(event) {
   event.preventDefault();
-  let LoginVentana = document.getElementById("LoginVentana");
+
   let loginInput = document.getElementById("login-email");
 
   LoginVentana.style.display = "block";
-  
 
-  loginInput.scrollIntoView({ behavior: "smooth", block: "center"});
+  loginInput.scrollIntoView({ behavior: "smooth", block: "center" });
   loginInput.focus();
 });
 
-
+// bloque para redirijir al usuario para crear su cuenta
 document.getElementById("goToRegister").addEventListener("click", function(event){
   event.preventDefault();
 
-  let RegisterVentana = document.getElementById("registerVentana");
-  let ResgiterInput = document.getElementById("email");
+  let RegisterInput = document.getElementById("email");
 
   RegisterVentana.style.display = "block";
-  RegisterVentana.style.visibility = "visible";
-  RegisterVentana.style.opacity = "1";
 
-  ResgiterInput.scrollIntoView({ behavior: "smooth", block: "center"});
-  ResgiterInput.focus();
+  RegisterInput.scrollIntoView({ behavior: "smooth", block: "center"});
+  RegisterInput.focus();
 })
+
+// Cerrar la ventana emergente si el usuario hace clic fuera de ella (login)
+document.addEventListener("click", function(event) {
+  if (LoginVentana.style.display === "block" && !LoginVentana.contains(event.target) && event.target.id !== "goToLogin") {
+      LoginVentana.style.display = "none";
+  }
+});
+
+// Cerrar la ventana emergente si el usuario hace clic fuera de ella (registro)
+document.addEventListener("click", function(event) {
+  if (RegisterVentana && RegisterVentana.style.display === "block" && !RegisterVentana.contains(event.target) && event.target.id !== "goToRegister") {
+      RegisterVentana.style.display = "none";
+  }
+});
