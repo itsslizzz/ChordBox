@@ -152,3 +152,32 @@ onAuthStateChanged(auth, (user) => {
   document.querySelector(".showMessage").style.display = user ? "none" : "block";
 });
 
+
+// bloque para redirijir al usuario para crear hacer su cuenta o iniciar sesion
+
+document.getElementById("goToLogin").addEventListener("click", function(event){
+  event.preventDefault();
+  let LoginVentana = document.getElementById("LoginVentana");
+  let loginInput = document.getElementById("login-email");
+
+  LoginVentana.style.display = "block";
+  
+
+  loginInput.scrollIntoView({ behavior: "smooth", block: "center"});
+  loginInput.focus();
+});
+
+
+document.getElementById("goToRegister").addEventListener("click", function(event){
+  event.preventDefault();
+
+  let RegisterVentana = document.getElementById("registerVentana");
+  let ResgiterInput = document.getElementById("email");
+
+  RegisterVentana.style.display = "block";
+  RegisterVentana.style.visibility = "visible";
+  RegisterVentana.style.opacity = "1";
+
+  ResgiterInput.scrollIntoView({ behavior: "smooth", block: "center"});
+  ResgiterInput.focus();
+})

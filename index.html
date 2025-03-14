@@ -17,7 +17,7 @@
               <!-- Sign in -->
               <div class="MenuDespegable">
                 <h2 class="ShowSign">Sign in</h2>
-                <div class="ShowVentana">
+                <div class="ShowVentana" id="LoginVentana">
                   <form id="loginForm">
                     <input type="email" id="login-email" placeholder="Correo" required>
                     <input type="password" id="login-password" placeholder="Contraseña" required>
@@ -35,7 +35,7 @@
               <!-- Create account -->
               <div class="MenuDespegable">
                 <h2 class="ShowCreate">Create account</h2>
-                <div class="ShowVentana">
+                <div class="ShowVentana" id="registerVentana">
                   <form id="registerForm">
                     <input type="email" id="email" placeholder="Correo" required>
                     <input type="password" id="password" placeholder="Contraseña" required>
@@ -52,7 +52,12 @@
      <p id="user-info"></p>
     </header>
     <main>
-        <h2 class="showMessage">Para subir tus Albumes tienes que <a href="#">iniciar sesion</a> o <a href="#">crearte una cuenta</a></h2>
+      <!-- mensaje para que el usuario se registre o se logee -->
+      <h2 class="showMessage">
+        Para subir tus álbumes tienes que 
+        <a href="#" id="goToLogin">iniciar sesión</a> o 
+        <a href="#" id="goToRegister">crearte una cuenta</a>
+      </h2>
          <!-- sección para mostrar los álbumes subidos -->
          <section id="AlbumContenedor">
           <h2>Sube tu álbum</h2>
