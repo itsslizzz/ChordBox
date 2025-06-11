@@ -197,7 +197,6 @@
   box-shadow: 0 4px 12px rgba(0,0,0,0.4);
 }
 
-<style>
   .top-song-box {
     display: flex;
     align-items: flex-start;
@@ -362,6 +361,30 @@
   </style>
 </head>
 <body>
+  <header class="header" id="header">
+    <nav class="nav container">
+      <a href="#" class="nav__logo">
+        <span class="logo-text">ChordBoxd</span>
+      </a>
+
+      <div class="nav__menu" id="nav-menu">
+        <ul class="nav__list">
+          <li class="nav__item">
+            <a href="#" class="nav__link">Álbumes</a>
+          </li>
+          <li class="nav__item nav__item--dropdown">
+            <a href="#" class="nav__link">Cuenta</a>
+            <ul class="dropdown-menu">
+              <li><a href="Perfil.html" class="dropdown-item">Perfil</a></li>
+            </ul>
+          </li>
+          <li class="nav__item">
+            <a href="#" class="nav__link">Buscar</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
   <div class="profile-container">
     <!-- Perfil -->
     <div class="profile-header">
