@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Perfil</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #121212;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: white;
+    }
+
+    .profile-container {
+      width: 100%;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .profile-header {
+      display: flex;
+      align-items: center;
+      background-color: #121212;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .image-container {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-right: 20px;
+    }
+
+    .profile-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .profile-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .username {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .bio {
+      font-size: 16px;
+      color: #aaa;
+      margin-top: 8px;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .edit-profile-btn {
+      margin-top: 15px;
+      padding: 8px 16px;
+      background-color: #00eaff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background-color 0.3s ease;
+    }
+
+    .edit-profile-btn:hover {
+      background-color: #00b3c1;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 20px;
+    }
+
+    .albums-container, .artistas-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 30px;
+      margin-top: 20px;
+    }
+
+    .album-slot, .artista-slot {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      overflow: hidden;
+      background-color: #2c2c2c;
+      transition: transform 0.3s ease;
+    }
+
+    .album-slot:hover img {
+      transform: rotate(360deg);
+    }
+
+    .album-slot img, .artista-slot img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+      transition: transform 3s linear;
+    }
+
+    .artista-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .top-song-box {
+      display: flex;
+      align-items: flex-start;
+      background-color: #1e1e1e;
+      padding: 20px;
+      border-radius: 12px;
+      gap: 20px;
+      width: 80%;
+      max-width: 700px;
+      margin: 0 auto 30px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    }
+
+    .song-artist-image {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background-color: #ffffff;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .song-artist-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .song-details {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .song-title, .song-artist {
+      font-size: 16px;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .song-lyrics {
+      background-color: #2c2c2c;
+      border-radius: 6px;
+      padding: 10px;
+      color: #d6d6d6;
+      font-family: inherit;
+      font-size: 14px;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .tag-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 30px;
+    }
+
+    .tag {
+      background-color: #00eaff;
+      color: #121212;
+      border-radius: 20px;
+      font-weight: bold;
+      padding: 6px 12px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="profile-container">
+    <div class="profile-header">
+      <div class="image-container">
+        <img id="profileImage" src="default.jpg" alt="Foto de perfil" class="profile-image" />
+      </div>
+      <div class="profile-info">
+        <div class="username">itsslizz</div>
+        <div class="bio" id="bioDisplay"></div>
+        <button class="edit-profile-btn" onclick="location.href='editarperfil.html'">Editar perfil</button>
+      </div>
+    </div>
+
+    <h3 class="section-title">Álbumes favoritos</h3>
+    <div class="albums-container">
+      <div class="album-slot"><img id="album1" src="default_album.jpg" alt=""></div>
+      <div class="album-slot"><img id="album2" src="default_album.jpg" alt=""></div>
+      <div class="album-slot"><img id="album3" src="default_album.jpg" alt=""></div>
+      <div class="album-slot"><img id="album4" src="default_album.jpg" alt=""></div>
+    </div>
+
+    <h3 class="section-title">Top artistas</h3>
+    <div class="artistas-container">
+      <div class="artista-wrapper"><div class="artista-slot"><img id="artista1" src="default_artista.jpg"></div><div id="nombreArtista1">Artista 1</div></div>
+      <div class="artista-wrapper"><div class="artista-slot"><img id="artista2" src="default_artista.jpg"></div><div id="nombreArtista2">Artista 2</div></div>
+      <div class="artista-wrapper"><div class="artista-slot"><img id="artista3" src="default_artista.jpg"></div><div id="nombreArtista3">Artista 3</div></div>
+      <div class="artista-wrapper"><div class="artista-slot"><img id="artista4" src="default_artista.jpg"></div><div id="nombreArtista4">Artista 4</div></div>
+      <div class="artista-wrapper"><div class="artista-slot"><img id="artista5" src="default_artista.jpg"></div><div id="nombreArtista5">Artista 5</div></div>
+    </div>
+
+    <h3 class="section-title">Top canciones</h3>
+    <div id="topSongsContainer"></div>
+
+    <h3 class="section-title">Géneros favoritos</h3>
+    <div id="tagContainer" class="tag-cloud"></div>
+  </div>
+
+  <script>
+    window.onload = function () {
+      const img = localStorage.getItem('profileImage');
+      if (img) document.getElementById('profileImage').src = img;
+
+      const bio = localStorage.getItem('userBio');
+      if (bio) document.getElementById('bioDisplay').innerText = bio;
+
+      for (let i = 1; i <= 4; i++) {
+        const album = localStorage.getItem(`album${i}`);
+        if (album) document.getElementById(`album${i}`).src = album;
+      }
+
+      for (let i = 1; i <= 5; i++) {
+        const artista = localStorage.getItem(`artista${i}`);
+        const nombre = localStorage.getItem(`nombreArtista${i}`);
+        if (artista) document.getElementById(`artista${i}`).src = artista;
+        if (nombre) document.getElementById(`nombreArtista${i}`).innerText = nombre;
+      }
+
+      const songCount = parseInt(localStorage.getItem("songCount")) || 0;
+      for (let i = 0; i < songCount; i++) {
+        const title = localStorage.getItem(`title${i}`) || "";
+        const artist = localStorage.getItem(`artist${i}`) || "";
+        const lyrics = localStorage.getItem(`lyrics${i}`) || "";
+        const image = localStorage.getItem(`songImage${i}`);
+
+        const div = document.createElement("div");
+        div.className = "top-song-box";
+        div.innerHTML = `
+          <div class="song-artist-image">
+            ${image ? `<img src="${image}">` : ''}
+          </div>
+          <div class="song-details">
+            <div class="song-title">${title}</div>
+            <div class="song-artist">${artist}</div>
+            <div class="song-lyrics">${lyrics.replace(/\n/g, "<br>")}</div>
+          </div>
+        `;
+        document.getElementById("topSongsContainer").appendChild(div);
+      }
+
+      const tags = JSON.parse(localStorage.getItem("userTags")) || [];
+      const container = document.getElementById("tagContainer");
+      tags.forEach(tag => {
+        const span = document.createElement("span");
+        span.className = "tag";
+        span.innerText = tag.nombre;
+        container.appendChild(span);
+      });
+    };
+  </script>
+</body>
+</html>

@@ -1,88 +1,127 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <title>ChordBoxd</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ChordBoxd</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/x-icon" href="https://images.unsplash.com/photo-1605731414532-6b26976cc153?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDd8fG11c2ljYXxlbnwwfHwwfHx8MA%3D%3D" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: url("https://images.unsplash.com/photo-1605731414532-6b26976cc153?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D") no-repeat center center fixed;
+      background-size: cover;
+      font-family: Arial, sans-serif;
+      color: white;
+    }
+  
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.3); 
+      z-index: -1;
+    }
+  
+    .header {
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  padding: 1rem 0;
+  margin: 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 99;
+}
+
+.nav {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+}
+
+.nav__logo .logo-text {
+  font-size: 2rem;
+  font-family: 'Courier New', monospace;
+  color: #00ffcc;
+  text-shadow: 0 0 4px #46dad5, 0 0 10px #46ebe6;
+  letter-spacing: 1px;
+  text-decoration: none;
+}
+
+.nav__list {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav__link {
+  font-size: 1.1rem;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  padding: 0.3rem 0.7rem;
+  border-radius: 6px;
+  transition: all 0.2s ease-in-out;
+}
+
+.nav__link:hover {
+  background: #00ffcc;
+  color: #000;
+  box-shadow: 0 0 10px #00ffcc;
+}
+
+  </style>
+  
 </head>
 <body>
-    <header>
-        <div class="Titulo-pagina">
-             <h1>ChordBoxd</h1>
-        </div>
-        <nav>
-            <ul class="Nav-menu">
-              <!-- Sign in -->
-              <div class="MenuDespegable">
-                <h2 class="ShowSign" id="SingH2">Sign in</h2>
-                <div class="ShowVentana" id="LoginVentana">
-                  <form id="loginForm">
-                    <input type="email" id="login-email" placeholder="Correo" required>
-                    <input type="password" id="login-password" placeholder="Contraseña" required>
-                    <button type="button" id="login">Sign in</button>
-                    <div id="loginErrorMsg" class="Error"></div>
-                    <div class="OpcionesAdiccionales">
-                      <label><input type="checkbox"> Recuérdame</label>
-                      <a href="#">¿Olvidaste la contraseña?</a>
-                    </div>
-                    <p>¿Primera vez en esta página? <a href="#">Ingresa ahora</a></p>
-                  </form>
-                </div>
-              </div>
-          
-              <!-- Create account -->
-              <div class="MenuDespegable">
-                <h2 class="ShowCreate" id="CreateH2">Create account</h2>
-                <div class="ShowVentana" id="registerVentana">
-                  <form id="registerForm">
-                    <input type="email" id="email" placeholder="Correo" required>
-                    <input type="password" id="password" placeholder="Contraseña" required>
-                    <button type="button" id="register">Registrar</button>
-                    <div id="registerErrorMsg" class="Error"></div>
-                  </form>
-                </div>
-              </div>
-              <li><h2>Albums</h2></li>
+  <header class="header" id="header">
+    <nav class="nav container">
+      <a href="#" class="nav__logo">
+        <span class="logo-text">ChordBoxd</span>
+      </a>
+
+      <div class="nav__menu" id="nav-menu">
+        <ul class="nav__list">
+          <li class="nav__item">
+            <a href="#" class="nav__link">Álbumes</a>
+          </li>
+          <li class="nav__item nav__item--dropdown">
+            <a href="#" class="nav__link">Cuenta</a>
+            <ul class="dropdown-menu">
+              <li><a href="perfil.html" class="dropdown-item">Perfil</a></li>
+              <li><a href="likes.html" class="dropdown-item">Likes</a></li>
             </ul>
-          </nav>
-               <!-- Botón de logout -->
-     <button id="logout">Cerrar Sesión</button>
-     <p id="user-info"></p>
-    </header>
-    <main>
-      <!-- mensaje para que el usuario se registre o se logee -->
-      <h2 class="showMessage">
-        Para subir tus álbumes tienes que 
+          </li>
+          <li class="nav__item">
+            <a href="#" class="nav__link">Buscar</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section id="loginSection" class="login-section">
+      <div class="login-box">
+        <h2>Para subir tus álbumes tienes que</h2>
         <a href="#" id="goToLogin">iniciar sesión</a> o 
         <a href="#" id="goToRegister">crearte una cuenta</a>
-      </h2>
-         <!-- sección para mostrar los álbumes subidos -->
-         <section id="AlbumContenedor">
-          <h2>Sube tu álbum</h2>
-            <section class="SubirAlbumes">
-               <label for="albumTitle-album"> Titulo del album :</label>
-               <input type="text" id="albumTitle" required>
-               <span id="titleError" class="error"></span>
-
-               <label for="albumArtist"> Nombre del artista :</label>
-               <input type="text" id="albumArtist" required>
-               <span id="artistError" class="error"></span>
-
-               <label for="AlbumFile">Foto del album :</label>
-               <input type="file" id="AlbumFile" accept="image/*" required>
-               <span id="coverError" class="error"></span>
-
-               <button id="submit">Subir álbum</button>
-             </section>
-         </section> 
-      <section id="albumGallery">
-           <h3>Álbumes subidos</h3>
-           <div id="albumsContainer"></div>
-      </section>
-    </main>
-    <script type="module" src="FireBase-Config.js"></script>
-    <script type="module" src="app.js"></script>
+      </div>
+    </section>
+  </main>
 </body>
 </html>
+

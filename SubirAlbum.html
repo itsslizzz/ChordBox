@@ -1,0 +1,32 @@
+<!-- Sección para subir álbumes -->
+<section id="AlbumContenedor">
+    <h2>Sube tu álbum</h2>
+    <section class="SubirAlbumes">
+      <label for="albumTitle-album">Titulo del album :</label>
+      <input type="text" id="albumTitle" required>
+      <span id="titleError" class="error"></span>
+
+      <label for="albumArtist">Nombre del artista :</label>
+      <input type="text" id="albumArtist" required>
+      <span id="artistError" class="error"></span>
+
+      <label for="AlbumFile">Foto del album :</label>
+      <input type="file" id="AlbumFile" accept="image/*" required>
+      <span id="coverError" class="error"></span>
+
+      <button id="submit">Subir álbum</button>
+    </section>
+  </section>
+
+  <!-- Sección para mostrar los álbumes subidos -->
+  <section id="albumGallery">
+    <h3>Álbumes subidos</h3>
+    <div id="albumsContainer"></div>
+  </section>
+</main>
+
+<!-- Scripts -->
+<script type="module" src="FireBase-Config.js"></script>
+<script type="module" src="app.js"></script>
+</body>
+</html>

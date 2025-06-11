@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Perfil</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #121212;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .profile-container {
+      width: 100%;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .profile-header {
+      display: flex;
+      align-items: center;
+      background-color: #121212;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .image-container {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-right: 20px;
+    }
+
+    .profile-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .profile-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .username {
+      font-size: 24px;
+      color: #ffffff;
+      font-weight: bold;
+    }
+
+    .bio {
+      font-size: 16px;
+      color: #888;
+      margin-top: 8px;
+    }
+
+    .edit-profile-btn {
+      margin-top: 15px;
+      padding: 8px 16px;
+      background-color: #00eaff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background-color 0.3s ease;
+    }
+
+    .edit-profile-btn:hover {
+      background-color: #00b3c1;
+    }
+
+    .section-title {
+      color: #fff;
+      font-size: 20px;
+      margin: 40px 0 20px;
+      text-align: center;
+    }
+
+    .albums-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+
+    .album-slot {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      overflow: hidden;
+      background-color: #2c2c2c;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .album-slot:hover {
+      transform: scale(1.05);
+    }
+
+    .album-slot img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+      transition: transform 3s linear;
+    }
+
+    .album-slot:hover img {
+      transform: rotate(360deg);
+    }
+
+    .artistas-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 25px;
+    }
+
+    .artista-wrapper {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 120px;
+    }
+
+    .artista-slot {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      overflow: hidden;
+      background-color: #2c2c2c;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .artista-slot:hover {
+      transform: scale(1.05);
+    }
+
+    .artista-slot img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+    }
+
+    .artista-badge {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background-color: #00b3c1;
+      color: #121212;
+      font-weight: bold;
+      font-size: 13px;
+      padding: 4px 9px;
+      border-radius: 50px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+
+    .artista-nombre {
+      margin-top: 8px;
+      width: 100%;
+      padding: 6px 8px;
+      font-size: 14px;
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      border: none;
+      border-radius: 4px;
+      background-color: transparent;
+      color: #ffffff;
+      outline: none;
+      border-bottom: 1px solid #444;
+    }
+
+    .artista-nombre::placeholder {
+      color: #777;
+    }
+    .top-song-box {
+  display: flex;
+  align-items: flex-start;
+  background-color: #1e1e1e;
+  padding: 20px;
+  border-radius: 12px;
+  gap: 20px;
+  width: 80%;
+  max-width: 700px;
+  margin: 0 auto 40px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+<style>
+  .top-song-box {
+    display: flex;
+    align-items: flex-start;
+    background-color: #1e1e1e;
+    padding: 20px;
+    border-radius: 12px;
+    gap: 20px;
+    width: 80%;
+    max-width: 700px;
+    margin: 0 auto 30px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  }
+
+  .song-artist-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .song-artist-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none;
+  }
+
+  .image-placeholder {
+    color: #121212;
+    font-size: 40px;
+    font-weight: bold;
+    position: absolute;
+  }
+
+  .song-details {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .song-title, .song-artist {
+    font-size: 16px;
+    color: #fff;
+    background: transparent;
+    border: none;
+    outline: none;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #444;
+  }
+
+  .song-lyrics {
+    background-color: #2c2c2c;
+    border: none;
+    border-radius: 6px;
+    padding: 10px;
+    color: #d6d6d6;
+    resize: none;
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+    min-height: 60px;
+  }
+
+  .add-song-btn {
+    display: block;
+    margin: 0 auto 50px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #1ed760;
+    color: #121212;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .add-song-btn:hover {
+    background-color: #19c253;
+  }
+
+
+
+
+
+  .tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.tag {
+  background-color: #00eaff;
+  color: #121212;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: default;
+  transition: 0.3s;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  line-height: 1;
+}
+
+.tag .text {
+  pointer-events: none;
+  display: inline-block;
+}
+
+.tag .actions {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.tag button {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-weight: bold;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 0 4px;
+  border-radius: 4px;
+}
+
+.tag button:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.tag .remove {
+  background-color: #ff4d4d;
+  color: white;
+  border-radius: 50%;
+  font-size: 12px;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+
+
+
+
+
+
+
+  </style>
+</head>
+<body>
+  <div class="profile-container">
+    <!-- Perfil -->
+    <div class="profile-header">
+      <div class="image-container" onclick="document.getElementById('fileInput').click();">
+        <img id="profileImage" src="path_to_profile_image.jpg" alt="Profile Image" class="profile-image"/>
+      </div>
+      <div class="profile-info">
+        <h2 class="username">itsslizz</h2>
+        <textarea id="bioInput" class="bio" placeholder="Escribe tu biografía...">Wake me up when September ends</textarea>
+        <button class="edit-profile-btn" onclick="guardarCambios()">Guardar</button>
+      </div>
+    </div>
+    <input type="file" id="fileInput" accept="image/*" style="display: none;" onchange="previewImage(event)" />
+  </div>
+  
+    <!-- Álbumes favoritos -->
+    <h3 class="section-title">Álbumes favoritos</h3>
+    <div class="albums-container">
+      <div class="album-slot" onclick="document.getElementById('albumInput1').click();">
+        <img id="album1" src="default_album.jpg" alt="Álbum 1">
+        <input type="file" id="albumInput1" accept="image/*" style="display: none;" onchange="previewAlbum(event, 'album1')" />
+      </div>
+      <div class="album-slot" onclick="document.getElementById('albumInput2').click();">
+        <img id="album2" src="default_album.jpg" alt="Álbum 2">
+        <input type="file" id="albumInput2" accept="image/*" style="display: none;" onchange="previewAlbum(event, 'album2')" />
+      </div>
+      <div class="album-slot" onclick="document.getElementById('albumInput3').click();">
+        <img id="album3" src="default_album.jpg" alt="Álbum 3">
+        <input type="file" id="albumInput3" accept="image/*" style="display: none;" onchange="previewAlbum(event, 'album3')" />
+      </div>
+      <div class="album-slot" onclick="document.getElementById('albumInput4').click();">
+        <img id="album4" src="default_album.jpg" alt="Álbum 4">
+        <input type="file" id="albumInput4" accept="image/*" style="display: none;" onchange="previewAlbum(event, 'album4')" />
+      </div>
+    </div>
+
+    <!-- Top artistas -->
+    <h3 class="section-title">Top artistas</h3>
+    <div class="artistas-container">
+      <!-- Cada artista -->
+      <div class="artista-wrapper">
+        <div class="artista-badge">1</div>
+        <div class="artista-slot" onclick="document.getElementById('artistaInput1').click();">
+          <img id="artista1" src="default_artista.jpg" alt="Artista 1">
+          <input type="file" id="artistaInput1" accept="image/*" style="display: none;" onchange="previewArtista(event, 'artista1')" />
+        </div>
+        <input type="text" id="nombreArtista1" class="artista-nombre" placeholder="Nombre artista" />
+      </div>
+
+      <div class="artista-wrapper">
+        <div class="artista-badge">2</div>
+        <div class="artista-slot" onclick="document.getElementById('artistaInput2').click();">
+          <img id="artista2" src="default_artista.jpg" alt="Artista 2">
+          <input type="file" id="artistaInput2" accept="image/*" style="display: none;" onchange="previewArtista(event, 'artista2')" />
+        </div>
+        <input type="text" id="nombreArtista2" class="artista-nombre" placeholder="Nombre artista" />
+      </div>
+
+      <div class="artista-wrapper">
+        <div class="artista-badge">3</div>
+        <div class="artista-slot" onclick="document.getElementById('artistaInput3').click();">
+          <img id="artista3" src="default_artista.jpg" alt="Artista 3">
+          <input type="file" id="artistaInput3" accept="image/*" style="display: none;" onchange="previewArtista(event, 'artista3')" />
+        </div>
+        <input type="text" id="nombreArtista3" class="artista-nombre" placeholder="Nombre artista" />
+      </div>
+
+      <div class="artista-wrapper">
+        <div class="artista-badge">4</div>
+        <div class="artista-slot" onclick="document.getElementById('artistaInput4').click();">
+          <img id="artista4" src="default_artista.jpg" alt="Artista 4">
+          <input type="file" id="artistaInput4" accept="image/*" style="display: none;" onchange="previewArtista(event, 'artista4')" />
+        </div>
+        <input type="text" id="nombreArtista4" class="artista-nombre" placeholder="Nombre artista" />
+      </div>
+
+      <div class="artista-wrapper">
+        <div class="artista-badge">5</div>
+        <div class="artista-slot" onclick="document.getElementById('artistaInput5').click();">
+          <img id="artista5" src="default_artista.jpg" alt="Artista 5">
+          <input type="file" id="artistaInput5" accept="image/*" style="display: none;" onchange="previewArtista(event, 'artista5')" />
+        </div>
+        <input type="text" id="nombreArtista5" class="artista-nombre" placeholder="Nombre artista" />
+      </div>
+    </div>
+    <!-- Sección: Top canciones -->
+<h3 class="section-title">Top canciones</h3>
+<div id="topSongsContainer"></div>
+<button class="add-song-btn" onclick="addTopSong()">+ Agregar canción</button>
+
+
+<h3 class="section-title">Géneros favoritos</h3>
+<div id="tagContainer" class="tag-cloud"></div>
+<div style="text-align: center; margin-top: 15px;">
+  <input type="text" id="newTagInput" placeholder="Agregar género..." class="tag-input" />
+  <button onclick="addTag()" class="add-song-btn">Agregar</button>
+</div>
+
+
+
+    
+    
+  </div>
+
+  <script>
+    // Imagen de perfil
+    window.onload = function () {
+      const storedImage = localStorage.getItem('profileImage');
+      if (storedImage) {
+        document.getElementById('profileImage').src = storedImage;
+      }
+  
+      for (let i = 1; i <= 4; i++) {
+        const albumImage = localStorage.getItem('album' + i);
+        if (albumImage) {
+          document.getElementById('album' + i).src = albumImage;
+        }
+      }
+  
+      for (let i = 1; i <= 5; i++) {
+        const artistaImg = localStorage.getItem('artista' + i);
+        const artistaNombre = localStorage.getItem('nombreArtista' + i);
+        if (artistaImg) {
+          document.getElementById('artista' + i).src = artistaImg;
+        }
+        if (artistaNombre) {
+          document.getElementById('nombreArtista' + i).value = artistaNombre;
+        }
+  
+        document.getElementById('nombreArtista' + i).addEventListener('input', function () {
+          localStorage.setItem('nombreArtista' + i, this.value);
+        });
+      }
+  
+      // Cargar top canciones al iniciar
+      const count = parseInt(localStorage.getItem('songCount')) || 1;
+      for (let i = 0; i < count; i++) addTopSong();
+    };
+  
+    function previewImage(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          const imageSrc = e.target.result;
+          localStorage.setItem('profileImage', imageSrc);
+          document.getElementById('profileImage').src = imageSrc;
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+  
+    function previewAlbum(event, albumId) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          const imageSrc = e.target.result;
+          localStorage.setItem(albumId, imageSrc);
+          document.getElementById(albumId).src = imageSrc;
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+  
+    function previewArtista(event, artistaId) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          const imageSrc = e.target.result;
+          localStorage.setItem(artistaId, imageSrc);
+          document.getElementById(artistaId).src = imageSrc;
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+  
+    // Top canciones
+    let songIndex = 0;
+  
+    function addTopSong() {
+      const container = document.getElementById('topSongsContainer');
+      const index = songIndex++;
+  
+      const box = document.createElement('div');
+      box.className = 'top-song-box';
+      box.innerHTML = `
+        <label class="song-artist-image" for="songImageInput${index}">
+          <img id="songImage${index}" alt="Artista">
+          <div class="image-placeholder" id="placeholder${index}">+</div>
+        </label>
+        <input type="file" id="songImageInput${index}" accept="image/*" style="display: none">
+        <div class="song-details">
+          <input type="text" class="song-title" placeholder="Nombre de la canción" id="title${index}">
+          <input type="text" class="song-artist" placeholder="Nombre del artista" id="artist${index}">
+          <textarea class="song-lyrics" placeholder="Escribe aquí la letra..." id="lyrics${index}"></textarea>
+        </div>
+      `;
+  
+      container.appendChild(box);
+  
+      const input = document.getElementById(`songImageInput${index}`);
+      const img = document.getElementById(`songImage${index}`);
+      const placeholder = document.getElementById(`placeholder${index}`);
+  
+      input.addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            const src = e.target.result;
+            img.src = src;
+            img.style.display = 'block';
+            placeholder.style.display = 'none';
+            localStorage.setItem(`songImage${index}`, src);
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+  
+      const storedImg = localStorage.getItem(`songImage${index}`);
+      if (storedImg) {
+        img.src = storedImg;
+        img.style.display = 'block';
+        placeholder.style.display = 'none';
+      }
+  
+      ['title', 'artist', 'lyrics'].forEach((field) => {
+        const inputEl = document.getElementById(`${field}${index}`);
+        const stored = localStorage.getItem(`${field}${index}`);
+        if (stored) inputEl.value = stored;
+        inputEl.addEventListener('input', () => {
+          localStorage.setItem(`${field}${index}`, inputEl.value);
+        });
+      });
+    }
+  
+    window.onbeforeunload = () => {
+      localStorage.setItem('songCount', songIndex);
+    };
+
+    
+
+    let tags = JSON.parse(localStorage.getItem("userTags")) || [];
+
+function renderTags() {
+  const container = document.getElementById("tagContainer");
+  container.innerHTML = "";
+
+  tags.forEach((tag, index) => {
+    const span = document.createElement("span");
+    span.className = "tag";
+    span.style.fontSize = `${14 + tag.prioridad * 4}px`;
+    span.style.padding = `${4 + tag.prioridad}px ${8 + tag.prioridad * 2}px`;
+
+
+    span.innerHTML = `
+      <span class="text">${tag.nombre}</span>
+      <div class="actions">
+        <button onclick="changePriority(${index}, 1)">+</button>
+        <button onclick="changePriority(${index}, -1)">−</button>
+        <button class="remove" onclick="removeTag(${index})">✕</button>
+      </div>
+    `;
+
+    container.appendChild(span);
+  });
+}
+
+function addTag() {
+  const input = document.getElementById("newTagInput");
+  const value = input.value.trim();
+  if (value && !tags.some(t => t.nombre.toLowerCase() === value.toLowerCase())) {
+    tags.push({ nombre: value, prioridad: 1 });
+    input.value = "";
+    saveTags();
+  }
+}
+
+function removeTag(index) {
+  tags.splice(index, 1);
+  saveTags();
+}
+
+function changePriority(index, change) {
+  tags[index].prioridad += change;
+  if (tags[index].prioridad < 1) tags[index].prioridad = 1;
+  if (tags[index].prioridad > 4) tags[index].prioridad = 4;
+  saveTags();
+}
+
+function saveTags() {
+  localStorage.setItem("userTags", JSON.stringify(tags));
+  renderTags();
+}
+
+renderTags();
+
+
+function guardarCambios() {
+      localStorage.setItem('profileImage', document.getElementById('profileImage').src);
+      for (let i = 1; i <= 4; i++) {
+        const albumSrc = document.getElementById('album' + i).src;
+        localStorage.setItem('album' + i, albumSrc);
+      }
+      for (let i = 1; i <= 5; i++) {
+        const artistaSrc = document.getElementById('artista' + i).src;
+        const artistaNombre = document.getElementById('nombreArtista' + i).value;
+        localStorage.setItem('artista' + i, artistaSrc);
+        localStorage.setItem('nombreArtista' + i, artistaNombre);
+      }
+      localStorage.setItem('songCount', songIndex);
+      location.href = 'perfil.html';
+    }
+
+    function guardarCambios() {
+  const bio = document.getElementById('bioInput').value;
+  localStorage.setItem('userBio', bio);
+  alert("¡Cambios guardados!");
+  window.location.href = 'perfil.html';
+
+}
+
+
+
+  </script>
+  
+</body>
+</html>
+
