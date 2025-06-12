@@ -153,7 +153,8 @@ onAuthStateChanged(auth, (user) => {
 });
 
 
-// Definir la variable globalmente
+// Definir las variables globalmente
+let RegisterVentana = document.getElementById("registerVentana");
 let LoginVentana = document.getElementById("LoginVentana");
 
 // bloque para redirijir al usuario a iniciar sesion
@@ -162,20 +163,16 @@ document.getElementById("goToLogin").addEventListener("click", function(event) {
 
   let loginInput = document.getElementById("login-email");
 
-  if (LoginVentana) {
-    LoginVentana.style.display = "block";
-    loginInput.scrollIntoView({ behavior: "smooth", block: "center" });
-    loginInput.focus();
-  } else {
-    console.error("LoginVentana is not defined or not present in the DOM.");
-  }
+  LoginVentana.style.display = "block";
+
+  loginInput.scrollIntoView({ behavior: "smooth", block: "center" });
+  loginInput.focus();
 });
 
 // bloque para redirijir al usuario para crear su cuenta
 document.getElementById("goToRegister").addEventListener("click", function(event){
   event.preventDefault();
 
-  let RegisterVentana = document.getElementById("registerVentana");
   let RegisterInput = document.getElementById("email");
 
   RegisterVentana.style.display = "block";
